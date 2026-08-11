@@ -18,13 +18,13 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCw8H7nAicBcO94uSfn3Ac0MsTrmhkTt4o",
-  authDomain: "fad3dbarber.firebaseapp.com",
-  projectId: "fad3dbarber",
-  storageBucket: "fad3dbarber.firebasestorage.app",
-  messagingSenderId: "799129393328",
-  appId: "1:799129393328:web:d4445932d4311738fb0375",
-  measurementId: "G-9ZSDDNX58P"
+  apiKey: "AIzaSyCV9AFjAKqMkZ5e8ZQf0m5hf5OS0QVB2AA",
+  authDomain: "fadedbarbers2-fabce.firebaseapp.com",
+  projectId: "fadedbarbers2-fabce",
+  storageBucket: "fadedbarbers2-fabce.firebasestorage.app",
+  messagingSenderId: "435519708485",
+  appId: "1:435519708485:web:33bc79d039fda2f3b6322c",
+  measurementId: "G-BTGV21B0Z2"
 };
 
 const app = initializeApp(firebaseConfig);
