@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin | FAD3D Barbers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Ultra&family=Archivo+Black&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    background: #ffffff;
+    color: #000000;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ---------- NAVBAR ---------- */
+
+  .navbar {
+    width: 100%;
+    height: 80px;
+    background: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    gap: 12px;
+  }
+
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    flex-shrink: 1;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .navbar img {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .navbar-brand {
+    font-family: 'Cinzel', 'Ultra', 'Helvetica Neue', serif;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: clamp(14px, 4.5vw, 28px);
+    letter-spacing: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .navbar-tag {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #7c1fa0;
+    background: #ffffff;
+    padding: 5px 10px;
+    flex-shrink: 0;
+    display: none;
+  }
+
+  .menu-btn {
+    width: 48px;
+    height: 48px;
+    background: #7c1fa0;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .menu-btn span {
+    display: block;
+    width: 22px;
+    height: 3px;
+    background: #ffffff;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+
+  .menu-btn.open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .menu-btn.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-btn.open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  .mobile-menu {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    background: #f4f2f0;
+    transition: max-height 0.35s ease;
+  }
+
+  .mobile-menu.open {
+    max-height: 400px;
+  }
+
+  .mobile-menu a {
+    display: block;
+    padding: 18px 24px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 17px;
+    color: #000000;
+    text-decoration: none;
+    border-bottom: 1px solid #dddddd;
+  }
+
+  .mobile-menu a:hover {
+    background: #e9e6e3;
+  }
+
+  .purple-bar {
+    width: 100%;
+    height: 6px;
+    background: #7c1fa0;
+  }
+
+  /* ---------- ADMIN HEADER STRIP ---------- */
+
+  .admin-header {
+    width: 100%;
+    background: #000000;
+    padding: 28px 24px;
+  }
+
+  .admin-header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .admin-header-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-weight: 400;
+    color: #ffffff;
+    font-size: clamp(20px, 4vw, 28px);
+    letter-spacing: 0.5px;
+  }
+
+  .admin-header-sub {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #b98fce;
+  }
+
+  /* ---------- ADMIN SECTIONS ---------- */
+
+  .admin-section {
+    width: 100%;
+    padding: 48px 20px;
+  }
+
+  .admin-section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .admin-section.alt {
+    background: #f4f2f0;
+  }
+
+  .section-eyebrow {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #7c1fa0;
+    margin-bottom: 8px;
+  }
+
+  .section-heading {
+    font-family: 'Archivo Black', sans-serif;
+    font-weight: 400;
+    color: #000000;
+    font-size: clamp(24px, 5vw, 32px);
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .section-count {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    color: #777777;
+    margin-bottom: 24px;
+  }
+
+  /* ---------- TABLES ---------- */
+
+  .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .admin-table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+  }
+
+  .admin-table thead th {
+    background: #000000;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 14px 16px;
+    white-space: nowrap;
+  }
+
+  .admin-table tbody td {
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #1a1a1a;
+    border-bottom: 1px solid #eeeeee;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .admin-table tbody tr:nth-child(even) {
+    background: #f9f8f7;
+  }
+
+  .admin-table tbody tr:hover {
+    background: #f4f2f0;
+  }
+
+  .admin-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .cell-strong {
+    font-weight: 700;
+    color: #000000;
+  }
+
+  .cell-sub {
+    display: block;
+    font-size: 12px;
+    color: #888888;
+    font-weight: 400;
+  }
+
+  .empty-row td {
+    text-align: center;
+    color: #888888;
+    font-style: italic;
+    padding: 28px 16px;
+  }
+
+  /* ---------- STATUS BADGES + SELECTS ---------- */
+
+  .status-select {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 8px 10px;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    background: #7c1fa0;
+  }
+
+  .status-select.st-pending { background: #f5a623; color: #000000; }
+  .status-select.st-confirmed,
+  .status-select.st-processing { background: #7c1fa0; color: #ffffff; }
+  .status-select.st-completed { background: #000000; color: #ffffff; }
+  .status-select.st-cancelled { background: #ffffff; color: #b00020; box-shadow: inset 0 0 0 1px #b00020; }
+
+  .row-delete-btn {
+    background: none;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #b00020;
+    cursor: pointer;
+    padding: 6px 4px;
+  }
+
+  .row-delete-btn:hover {
+    text-decoration: underline;
+  }
+
+  /* ---------- STOCK BADGES (reused from products page) ---------- */
+
+  .stock-badge {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    color: #ffffff;
+    display: inline-block;
+  }
+
+  .stock-badge.in-stock { background: #7c1fa0; }
+  .stock-badge.low-stock { background: #f5a623; color: #000000; }
+  .stock-badge.sold-out { background: #000000; }
+
+  /* ---------- FORMS ---------- */
+
+  .admin-forms-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-bottom: 40px;
+  }
+
+  .admin-form-card {
+    background: #ffffff;
+    border-top: 4px solid #7c1fa0;
+    padding: clamp(22px, 5vw, 32px);
+  }
+
+  .admin-form-card h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-weight: 400;
+    font-size: 19px;
+    color: #000000;
+    margin-bottom: 4px;
+  }
+
+  .admin-form-hint {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    color: #888888;
+    margin-bottom: 22px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .form-group label {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #000000;
+    margin-bottom: 8px;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="number"],
+  .form-group input[type="password"],
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    border: 1px solid #cccccc;
+    background: #ffffff;
+    padding: 13px 14px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px;
+    color: #000000;
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: 2px solid #7c1fa0;
+    outline-offset: -2px;
+  }
+
+  .form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .admin-submit-btn {
+    width: 100%;
+    margin-top: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: #7c1fa0;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+  }
+
+  .admin-submit-btn:hover {
+    background: #661a86;
+  }
+
+  .form-feedback {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: #7c1fa0;
+    margin-top: 12px;
+    min-height: 16px;
+  }
+
+  .form-feedback.error {
+    color: #c0392b;
+  }
+
+  .image-preview-wrap {
+    margin-top: 10px;
+  }
+
+  /* ---------- ADMIN LOCK SCREEN ---------- */
+  .admin-lock-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: #0d0d0d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .admin-lock-card {
+    width: 100%;
+    max-width: 340px;
+    text-align: center;
+  }
+
+  .admin-lock-card img {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 18px;
+  }
+
+  .admin-lock-card h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: #ffffff;
+    margin-bottom: 6px;
+  }
+
+  .admin-lock-card p {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    color: #a0a0a0;
+    margin-bottom: 22px;
+  }
+
+  .admin-lock-input {
+    width: 100%;
+    text-align: center;
+    letter-spacing: 10px;
+    font-size: 22px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    padding: 14px 10px;
+    border: 1px solid #333;
+    background: #1a1a1a;
+    color: #ffffff;
+    border-radius: 2px;
+  }
+
+  .admin-lock-input:focus {
+    outline: 2px solid #b34fe0;
+    outline-offset: -2px;
+  }
+
+  .admin-lock-remember {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    color: #cccccc;
+  }
+
+  .admin-lock-remember input {
+    width: 16px;
+    height: 16px;
+  }
+
+  .admin-lock-card .admin-submit-btn {
+    margin-top: 18px;
+  }
+
+  .admin-lock-feedback {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    color: #ff6b6b;
+    margin-top: 14px;
+    min-height: 16px;
+  }
+
+  .image-preview-wrap img {
+    width: 100%;
+    max-width: 220px;
+    max-height: 150px;
+    object-fit: cover;
+    border: 1px solid #cccccc;
+    display: none;
+  }
+
+  .form-cancel-btn {
+    width: 100%;
+    margin-top: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #7c1fa0;
+    background: #ffffff;
+    border: 1px solid #7c1fa0;
+    padding: 12px 20px;
+    cursor: pointer;
+    display: none;
+  }
+
+  .admin-submit-btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+  }
+
+  .table-thumb {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    border: 1px solid #dddddd;
+    display: block;
+  }
+
+  .cell-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .row-edit-btn {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #7c1fa0;
+    background: #ffffff;
+    border: 1px solid #7c1fa0;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  .row-edit-btn:hover {
+    background: #f4e9fa;
+  }
+
+  .stock-input {
+    width: 70px;
+    border: 1px solid #cccccc;
+    padding: 8px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+  }
+
+  /* ---------- AVAILABILITY GRID ---------- */
+
+  .availability-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .avail-slot {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    padding: 12px 6px;
+    border: 1px solid #cccccc;
+    background: #ffffff;
+    color: #000000;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .avail-slot.open {
+    background: #7c1fa0;
+    border-color: #7c1fa0;
+    color: #ffffff;
+  }
+
+  .avail-slot.closed {
+    background: #f4f2f0;
+    color: #999999;
+    text-decoration: line-through;
+  }
+
+  .avail-slot:disabled {
+    cursor: wait;
+    opacity: 0.6;
+  }
+
+  @media (min-width: 600px) {
+    .availability-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .availability-grid {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  .availability-legend {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .legend-swatch {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #cccccc;
+    flex-shrink: 0;
+  }
+
+  .legend-swatch-open {
+    background: #7c1fa0;
+    border-color: #7c1fa0;
+  }
+
+  .legend-swatch-closed {
+    background: #f4f2f0;
+  }
+
+  .legend-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    color: #000000;
+  }
+
+  /* ---------- FOOTER ---------- */
+
+  .admin-footer {
+    width: 100%;
+    background: #000000;
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .admin-footer p {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    color: #999999;
+  }
+
+  @media (min-width: 700px) {
+    .admin-forms-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .navbar-tag {
+      display: block;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="admin-lock-overlay" id="adminLockOverlay">
+  <div class="admin-lock-card">
+    <img src="logo.png" alt="FAD3D logo">
+    <h1>Admin Access</h1>
+    <p>Enter the 6-digit access code to continue.</p>
+    <form id="adminLockForm">
+      <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" class="admin-lock-input" id="adminLockInput" placeholder="&middot;&middot;&middot;&middot;&middot;&middot;">
+      <label class="admin-lock-remember">
+        <input type="checkbox" id="adminLockRemember">
+        Remember this device
+      </label>
+      <button type="submit" class="admin-submit-btn" id="adminLockSubmit">Unlock</button>
+      <p class="admin-lock-feedback" id="adminLockFeedback"></p>
+    </form>
+  </div>
+</div>
+
+<div id="debugBanner" style="display:none; position:sticky; top:0; z-index:9999; background:#c0392b; color:#fff; font-family:monospace; font-size:12px; padding:10px; white-space:pre-wrap; word-break:break-word;"></div>
+<script>
+  function showDebugError(msg) {
+    var b = document.getElementById('debugBanner');
+    if (!b) return;
+    b.style.display = 'block';
+    b.textContent += (b.textContent ? '\n\n' : '') + msg;
+  }
+  window.addEventListener('error', function (e) {
+    showDebugError('JS ERROR: ' + (e.message || 'unknown') + (e.filename ? ' (' + e.filename + ':' + e.lineno + ')' : ''));
+  });
+  window.addEventListener('unhandledrejection', function (e) {
+    showDebugError('PROMISE ERROR: ' + (e.reason && e.reason.message ? e.reason.message : e.reason));
+  });
+</script>
+
+  <nav class="navbar">
+    <a href="index.html" class="navbar-left" aria-label="FAD3D Barbers home">
+      <img src="logo.png" alt="FAD3D logo">
+      <span class="navbar-brand">FAD3D BARBERS</span>
+    </a>
+    <span class="navbar-tag">Admin Panel</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html#offer">Services</a>
+    <a href="products.html">Products</a>
+    <a href="book.html">Book</a>
+  </div>
+
+  <div class="purple-bar"></div>
+
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <span class="admin-header-title">Admin Dashboard</span>
+      <span class="admin-header-sub">Reservations &middot; Orders &middot; Stock</span>
+    </div>
+  </header>
+
+  <!-- ---------- RESERVATIONS ---------- -->
+  <section class="admin-section">
+    <div class="admin-section-inner">
+      <p class="section-eyebrow">Bookings</p>
+      <h2 class="section-heading">Reservations</h2>
+      <p class="section-count" id="reservationsCount"></p>
+
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Service(s)</th>
+              <th>Date &amp; Time</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="reservationsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- AVAILABILITY ---------- -->
+  <section class="admin-section alt">
+    <div class="admin-section-inner">
+      <p class="section-eyebrow">Booking Hours</p>
+      <h2 class="section-heading">Manage Availability</h2>
+      <p class="section-count">Tap a time slot to open or close it for bookings, 8am&ndash;8pm in 30-minute intervals. This is the window customers see on the Book page. Changes save instantly.</p>
+      <p class="form-feedback" id="availabilityFeedback"></p>
+      <div class="availability-grid" id="availabilityGrid"></div>
+      <div class="availability-legend">
+        <div class="legend-item">
+          <span class="legend-swatch legend-swatch-open"></span>
+          <span class="legend-label">Available</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-swatch legend-swatch-closed"></span>
+          <span class="legend-label">Unavailable</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- ORDERS ---------- -->
+  <section class="admin-section alt">
+    <div class="admin-section-inner">
+      <p class="section-eyebrow">Shop</p>
+      <h2 class="section-heading">Orders</h2>
+      <p class="section-count" id="ordersCount"></p>
+
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Item(s)</th>
+              <th>Qty</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- PRODUCTS ---------- -->
+  <section class="admin-section">
+    <div class="admin-section-inner">
+      <p class="section-eyebrow">Inventory</p>
+      <h2 class="section-heading">Manage Products</h2>
+      <p class="section-count">Upload a photo, description, price and stock count. Changes appear on the Products page instantly.</p>
+
+      <div class="admin-forms-grid">
+        <div class="admin-form-card">
+          <h3 id="productFormTitle">Add New Product</h3>
+          <p class="admin-form-hint">Photo, name, description, price and stock.</p>
+          <form id="productForm" novalidate>
+            <input type="hidden" id="productId" value="">
+            <div class="form-group">
+              <label for="productName">Product Name</label>
+              <input type="text" id="productName" maxlength="60" required>
+            </div>
+            <div class="form-group">
+              <label for="productDesc">Description</label>
+              <textarea id="productDesc" maxlength="300" required></textarea>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="productCategory">Category</label>
+                <select id="productCategory">
+                  <option value="Grooming">Grooming</option>
+                  <option value="Styling">Styling</option>
+                  <option value="Tools">Tools</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="productPrice">Price (&pound;)</label>
+                <input type="number" id="productPrice" min="0" step="0.01" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="productStock">Stock Quantity</label>
+              <input type="number" id="productStock" min="0" step="1" value="0" required>
+            </div>
+            <div class="form-group">
+              <label for="productImage">Photo</label>
+              <input type="file" id="productImage" accept="image/*">
+              <div class="image-preview-wrap"><img id="productImagePreview" alt="Preview"></div>
+            </div>
+            <button type="submit" class="admin-submit-btn" id="productSubmitBtn">Add Product</button>
+            <button type="button" class="form-cancel-btn" id="productCancelBtn">Cancel Edit</button>
+            <p class="form-feedback" id="productFeedback"></p>
+          </form>
+        </div>
+      </div>
+
+      <p class="section-count" id="productsCount"></p>
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Photo</th>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="productsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- SERVICES ---------- -->
+  <section class="admin-section alt">
+    <div class="admin-section-inner">
+      <p class="section-eyebrow">Barbering</p>
+      <h2 class="section-heading">Manage Services</h2>
+      <p class="section-count">Upload a photo, description and price for each service. Changes appear on the Services page instantly.</p>
+
+      <div class="admin-forms-grid">
+        <div class="admin-form-card">
+          <h3 id="serviceFormTitle">Add New Service</h3>
+          <p class="admin-form-hint">Photo, name, description and price.</p>
+          <form id="serviceForm" novalidate>
+            <input type="hidden" id="serviceId" value="">
+            <div class="form-group">
+              <label for="serviceName">Service Name</label>
+              <input type="text" id="serviceName" maxlength="60" required>
+            </div>
+            <div class="form-group">
+              <label for="serviceDesc">Description</label>
+              <textarea id="serviceDesc" maxlength="300" required></textarea>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="servicePrice">Price (&pound;)</label>
+                <input type="number" id="servicePrice" min="0" step="0.01" required>
+              </div>
+              <div class="form-group">
+                <label for="servicePriceUnit">Price Label</label>
+                <input type="text" id="servicePriceUnit" maxlength="30" placeholder="e.g. Per Cut">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="serviceDuration">Duration (minutes)</label>
+              <input type="number" id="serviceDuration" min="30" step="30" value="30" required>
+              <p class="admin-form-hint" style="margin-top:6px; margin-bottom:0;">In 30-minute steps. This sets how the time slots are spaced on the Book page when a customer picks this service.</p>
+            </div>
+            <div class="form-group">
+              <label for="serviceImage">Photo</label>
+              <input type="file" id="serviceImage" accept="image/*">
+              <div class="image-preview-wrap"><img id="serviceImagePreview" alt="Preview"></div>
+            </div>
+            <button type="submit" class="admin-submit-btn" id="serviceSubmitBtn">Add Service</button>
+            <button type="button" class="form-cancel-btn" id="serviceCancelBtn">Cancel Edit</button>
+            <p class="form-feedback" id="serviceFeedback"></p>
+          </form>
+        </div>
+      </div>
+
+      <p class="section-count" id="servicesCount"></p>
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Photo</th>
+              <th>Service</th>
+              <th>Price</th>
+              <th>Duration</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="servicesBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- REVIEWS ---------- -->
+  <section class="admin-section">
+    <div class="admin-section-inner">
+      <p class="section-eyebrow">Feedback</p>
+      <h2 class="section-heading">Customer Reviews</h2>
+      <p class="section-count" id="reviewsCount"></p>
+
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Rating</th>
+              <th>Review</th>
+              <th>Date</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="reviewsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- ADMIN ACCESS CODE ---------- -->
+  <section class="admin-section alt">
+    <div class="admin-section-inner">
+      <p class="section-eyebrow">Security</p>
+      <h2 class="section-heading">Admin Access Code</h2>
+      <p class="section-count">Change the code used to unlock this page. Anyone with the code can access everything above, so keep it private.</p>
+
+      <div class="admin-form-card">
+        <form id="changeCodeForm">
+          <div class="form-group">
+            <label for="currentCodeInput">Current Code</label>
+            <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" id="currentCodeInput" required>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="newCodeInput">New Code (6 digits)</label>
+              <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" id="newCodeInput" required>
+            </div>
+            <div class="form-group">
+              <label for="confirmCodeInput">Confirm New Code</label>
+              <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" id="confirmCodeInput" required>
+            </div>
+          </div>
+          <button type="submit" class="admin-submit-btn" id="changeCodeBtn">Update Code</button>
+          <p class="form-feedback" id="changeCodeFeedback"></p>
+        </form>
+
+        <p class="admin-form-hint" style="margin-top:16px;">Forgotten the code entirely? That has to be reset from the Firebase Console (Authentication &rarr; Users &rarr; the internal admin account &rarr; Reset password) rather than from this page, since resetting a password without knowing the old one can't be done safely from client-side code.</p>
+
+        <button type="button" class="form-cancel-btn" id="adminSignOutBtn" style="margin-top:16px;">Sign Out of Admin</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="admin-footer">
+    <p>&copy; 2026 FAD3D Barbers &mdash; Admin Panel. Internal use only.</p>
+  </footer>
+
+  <script type="module">
+    import {
+      db, collection, addDoc, updateDoc, deleteDoc, doc, getDoc, setDoc, onSnapshot, query, orderBy,
+      serverTimestamp, uploadToCloudinary, escapeHtml,
+      auth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updatePassword,
+      reauthenticateWithCredential, EmailAuthProvider, setPersistence,
+      browserLocalPersistence, browserSessionPersistence
+    } from './js/firebase-init.js';
+
+    // ---------- ADMIN ACCESS CODE (backed by Firebase Auth) ----------
+    // The "code" the client types IS the password for a single fixed internal
+    // Auth account. That email never appears in the UI. Firestore rules check
+    // request.auth != null, so this is enforced server-side, not just in JS.
+    const ADMIN_EMAIL = 'internal@faded.co.uk';
+
+    const lockOverlay = document.getElementById('adminLockOverlay');
+    const lockForm = document.getElementById('adminLockForm');
+    const lockInput = document.getElementById('adminLockInput');
+    const lockRemember = document.getElementById('adminLockRemember');
+    const lockFeedback = document.getElementById('adminLockFeedback');
+    const lockSubmit = document.getElementById('adminLockSubmit');
+
+    function unlockAdmin() {
+      lockOverlay.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function lockAdmin() {
+      lockOverlay.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Firebase keeps you signed in across reloads on its own (that's what
+    // "Remember this device" controls, via persistence mode below), so this
+    // replaces the old localStorage-based remembered-device check.
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        unlockAdmin();
+      } else {
+        lockAdmin();
+      }
+    });
+
+    lockForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const entered = lockInput.value.trim();
+      if (!/^\d{6}$/.test(entered)) {
+        lockFeedback.textContent = 'Enter the 6-digit code.';
+        return;
+      }
+      lockSubmit.disabled = true;
+      lockSubmit.textContent = 'Checking...';
+      try {
+        // Checked = stay signed in after the browser closes. Unchecked = only
+        // for this tab session. Set before signing in so it applies right away.
+        await setPersistence(auth, lockRemember.checked ? browserLocalPersistence : browserSessionPersistence);
+        await signInWithEmailAndPassword(auth, ADMIN_EMAIL, entered);
+        lockFeedback.textContent = '';
+        lockForm.reset();
+      } catch (err) {
+        lockFeedback.textContent = 'Incorrect code. Try again.';
+        lockInput.value = '';
+        lockInput.focus();
+      } finally {
+        lockSubmit.disabled = false;
+        lockSubmit.textContent = 'Unlock';
+      }
+    });
+
+    // ---------- CHANGE ACCESS CODE ----------
+    const changeCodeForm = document.getElementById('changeCodeForm');
+    const currentCodeInput = document.getElementById('currentCodeInput');
+    const newCodeInput = document.getElementById('newCodeInput');
+    const confirmCodeInput = document.getElementById('confirmCodeInput');
+    const changeCodeFeedback = document.getElementById('changeCodeFeedback');
+    const changeCodeBtn = document.getElementById('changeCodeBtn');
+
+    changeCodeForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const current = currentCodeInput.value.trim();
+      const a = newCodeInput.value.trim();
+      const b = confirmCodeInput.value.trim();
+      changeCodeFeedback.classList.remove('error');
+      if (!/^\d{6}$/.test(current) || !/^\d{6}$/.test(a)) {
+        changeCodeFeedback.classList.add('error');
+        changeCodeFeedback.textContent = 'Codes must be exactly 6 digits.';
+        return;
+      }
+      if (a !== b) {
+        changeCodeFeedback.classList.add('error');
+        changeCodeFeedback.textContent = "New codes don't match.";
+        return;
+      }
+      changeCodeBtn.disabled = true;
+      changeCodeBtn.textContent = 'Updating...';
+      try {
+        // Firebase requires a recent sign-in before allowing a password change,
+        // so we re-confirm the current code first.
+        const credential = EmailAuthProvider.credential(ADMIN_EMAIL, current);
+        await reauthenticateWithCredential(auth.currentUser, credential);
+        await updatePassword(auth.currentUser, a);
+        changeCodeFeedback.textContent = 'Access code updated.';
+        changeCodeForm.reset();
+      } catch (err) {
+        changeCodeFeedback.classList.add('error');
+        if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password') {
+          changeCodeFeedback.textContent = 'Current code is incorrect.';
+        } else {
+          changeCodeFeedback.textContent = `Couldn't update code: ${err.message}`;
+        }
+      } finally {
+        changeCodeBtn.disabled = false;
+        changeCodeBtn.textContent = 'Update Code';
+      }
+    });
+
+    // ---------- SIGN OUT ----------
+    const adminSignOutBtn = document.getElementById('adminSignOutBtn');
+    if (adminSignOutBtn) {
+      adminSignOutBtn.addEventListener('click', () => signOut(auth));
+    }
+
+    // ---------- MOBILE MENU ----------
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('open');
+        menuBtn.classList.toggle('open', isOpen);
+        menuBtn.setAttribute('aria-expanded', isOpen);
+      });
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          menuBtn.classList.remove('open');
+          menuBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    // ---------- DEMO DATA (in-memory only, resets on reload) ----------
+
+    // ---------- RESERVATIONS (bookings collection) ----------
+
+    const bookingsCol = collection(db, 'bookings');
+    const reservationsBody = document.getElementById('reservationsBody');
+    const reservationsCount = document.getElementById('reservationsCount');
+    const RES_STATUSES = ['pending', 'confirmed', 'completed', 'cancelled'];
+
+    let reservationsCache = [];
+
+    function formatBookingDateTime(b) {
+      if (!b.date || !b.time) return '';
+      const [y, m, d] = b.date.split('-').map(Number);
+      const [h, min] = b.time.split(':').map(Number);
+      const dt = new Date(y, (m || 1) - 1, d || 1, h || 0, min || 0);
+      const dateLabel = dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+      const timeLabel = dt.toLocaleTimeString('en-GB', { hour: 'numeric', minute: '2-digit' });
+      return `${dateLabel}, ${timeLabel}`;
+    }
+
+    function renderReservations() {
+      reservationsCount.textContent = `${reservationsCache.length} reservation${reservationsCache.length === 1 ? '' : 's'}`;
+      reservationsBody.innerHTML = '';
+
+      if (reservationsCache.length === 0) {
+        reservationsBody.innerHTML = '<tr class="empty-row"><td colspan="6">No reservations yet.</td></tr>';
+        return;
+      }
+
+      reservationsCache.forEach(r => {
+        const status = r.status || 'pending';
+        const serviceNames = Array.isArray(r.services) ? r.services.map(s => s.name).join(', ') : (r.services || '');
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${escapeHtml(r.customerName || '')}<span class="cell-sub">${escapeHtml(r.customerPhone || '')}</span></td>
+          <td>${escapeHtml(serviceNames)}</td>
+          <td>${formatBookingDateTime(r)}</td>
+          <td class="cell-strong">&pound;${Number(r.totalPrice || 0).toFixed(2)}</td>
+          <td>
+            <select class="status-select st-${status}" data-id="${r.id}" data-type="reservation">
+              ${RES_STATUSES.map(s => `<option value="${s}" ${s === status ? 'selected' : ''}>${s.charAt(0).toUpperCase() + s.slice(1)}</option>`).join('')}
+            </select>
+          </td>
+          <td><button type="button" class="row-delete-btn" data-id="${r.id}" data-type="reservation">Remove</button></td>
+        `;
+        reservationsBody.appendChild(tr);
+      });
+    }
+
+    onSnapshot(query(bookingsCol, orderBy('createdAt', 'desc')), (snap) => {
+      reservationsCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderReservations();
+    }, (err) => {
+      reservationsBody.innerHTML = `<tr class="empty-row"><td colspan="6">Couldn't load reservations: ${err.message}</td></tr>`;
+    });
+
+    // ---------- ORDERS (orders collection) ----------
+
+    const ordersCol = collection(db, 'orders');
+    const ordersBody = document.getElementById('ordersBody');
+    const ordersCount = document.getElementById('ordersCount');
+    const ORDER_STATUSES = ['pending', 'in-progress', 'completed', 'rejected', 'cancelled'];
+
+    let ordersCache = [];
+
+    function renderOrders() {
+      ordersCount.textContent = `${ordersCache.length} order${ordersCache.length === 1 ? '' : 's'}`;
+      ordersBody.innerHTML = '';
+
+      if (ordersCache.length === 0) {
+        ordersBody.innerHTML = '<tr class="empty-row"><td colspan="6">No orders yet.</td></tr>';
+        return;
+      }
+
+      ordersCache.forEach(o => {
+        const status = o.status || 'pending';
+        const statusLabel = status.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${escapeHtml(o.customerName || '')}<span class="cell-sub">${escapeHtml(o.customerPhone || '')}</span></td>
+          <td>${escapeHtml(o.productName || '')}</td>
+          <td>${escapeHtml(o.qty || '')}</td>
+          <td class="cell-strong">&pound;${Number(o.total || 0).toFixed(2)}</td>
+          <td>
+            <select class="status-select st-${status}" data-id="${o.id}" data-type="order">
+              ${ORDER_STATUSES.map(s => `<option value="${s}" ${s === status ? 'selected' : ''}>${s.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}</option>`).join('')}
+            </select>
+          </td>
+          <td><button type="button" class="row-delete-btn" data-id="${o.id}" data-type="order">Remove</button></td>
+        `;
+        ordersBody.appendChild(tr);
+      });
+    }
+
+    onSnapshot(query(ordersCol, orderBy('createdAt', 'desc')), (snap) => {
+      ordersCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderOrders();
+    }, (err) => {
+      ordersBody.innerHTML = `<tr class="empty-row"><td colspan="6">Couldn't load orders: ${err.message}</td></tr>`;
+    });
+
+    // ---------- REVIEWS (reviews collection) ----------
+
+    const reviewsCol = collection(db, 'reviews');
+    const reviewsBody = document.getElementById('reviewsBody');
+    const reviewsCount = document.getElementById('reviewsCount');
+
+    function formatReviewDate(timestamp) {
+      if (!timestamp || typeof timestamp.toDate !== 'function') return 'Just now';
+      return timestamp.toDate().toISOString().slice(0, 10);
+    }
+
+    onSnapshot(query(reviewsCol, orderBy('createdAt', 'desc')), (snap) => {
+      reviewsCount.textContent = `${snap.size} review${snap.size === 1 ? '' : 's'}`;
+      reviewsBody.innerHTML = '';
+
+      if (snap.empty) {
+        reviewsBody.innerHTML = '<tr class="empty-row"><td colspan="5">No reviews yet.</td></tr>';
+        return;
+      }
+
+      snap.forEach(docSnap => {
+        const r = docSnap.data();
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${escapeHtml(r.name || 'Anonymous')}</td>
+          <td>${'&#9733;'.repeat(Number(r.stars) || 0)}${'&#9734;'.repeat(5 - (Number(r.stars) || 0))}</td>
+          <td>${escapeHtml(r.text || '')}</td>
+          <td>${formatReviewDate(r.createdAt)}</td>
+          <td><button type="button" class="row-delete-btn" data-id="${docSnap.id}" data-type="review">Remove</button></td>
+        `;
+        reviewsBody.appendChild(tr);
+      });
+    }, (err) => {
+      reviewsBody.innerHTML = `<tr class="empty-row"><td colspan="5">Couldn't load reviews: ${err.message}</td></tr>`;
+    });
+
+    // ---------- STATUS + DELETE (event delegation) ----------
+
+    document.addEventListener('change', async (e) => {
+      if (!e.target.classList.contains('status-select')) return;
+      const { id, type } = e.target.dataset;
+      const newStatus = e.target.value;
+      try {
+        if (type === 'reservation') {
+          await updateDoc(doc(db, 'bookings', id), { status: newStatus });
+        } else if (type === 'order') {
+          await updateDoc(doc(db, 'orders', id), { status: newStatus });
+        }
+      } catch (err) {
+        alert(`Couldn't update status: ${err.message}`);
+      }
+    });
+
+    document.addEventListener('click', async (e) => {
+      if (!e.target.classList.contains('row-delete-btn')) return;
+      const { id, type } = e.target.dataset;
+      if (type === 'reservation') {
+        if (!confirm('Remove this reservation?')) return;
+        try { await deleteDoc(doc(db, 'bookings', id)); } catch (err) { alert(`Couldn't delete: ${err.message}`); }
+      } else if (type === 'order') {
+        if (!confirm('Remove this order?')) return;
+        try { await deleteDoc(doc(db, 'orders', id)); } catch (err) { alert(`Couldn't delete: ${err.message}`); }
+      } else if (type === 'review') {
+        if (!confirm('Remove this review?')) return;
+        try { await deleteDoc(doc(db, 'reviews', id)); } catch (err) { alert(`Couldn't delete: ${err.message}`); }
+      }
+    });
+
+    // ---------- SHARED HELPERS ----------
+
+    function stockStatus(stock) {
+      if (stock <= 0) return { cls: 'sold-out', label: 'Sold Out' };
+      if (stock <= 5) return { cls: 'low-stock', label: 'Selling Fast' };
+      return { cls: 'in-stock', label: 'In Stock' };
+    }
+
+    function showFeedback(el, message, isError = false) {
+      el.textContent = message;
+      el.classList.toggle('error', isError);
+      setTimeout(() => { el.textContent = ''; el.classList.remove('error'); }, 4000);
+    }
+
+    function wireImagePreview(inputEl, previewEl) {
+      inputEl.addEventListener('change', () => {
+        const file = inputEl.files[0];
+        if (!file) { previewEl.style.display = 'none'; return; }
+        previewEl.src = URL.createObjectURL(file);
+        previewEl.style.display = 'block';
+      });
+    }
+
+    // ---------- PRODUCTS ----------
+
+    const productsCol = collection(db, 'products');
+    const productsBody = document.getElementById('productsBody');
+    const productsCount = document.getElementById('productsCount');
+
+    const productForm = document.getElementById('productForm');
+    const productIdInput = document.getElementById('productId');
+    const productFormTitle = document.getElementById('productFormTitle');
+    const productSubmitBtn = document.getElementById('productSubmitBtn');
+    const productCancelBtn = document.getElementById('productCancelBtn');
+    const productFeedback = document.getElementById('productFeedback');
+    const productNameInput = document.getElementById('productName');
+    const productDescInput = document.getElementById('productDesc');
+    const productCategoryInput = document.getElementById('productCategory');
+    const productPriceInput = document.getElementById('productPrice');
+    const productStockInput = document.getElementById('productStock');
+    const productImageInput = document.getElementById('productImage');
+    const productImagePreview = document.getElementById('productImagePreview');
+
+    wireImagePreview(productImageInput, productImagePreview);
+
+    let productsCache = [];
+
+    function renderProducts() {
+      productsCount.textContent = `${productsCache.length} product${productsCache.length === 1 ? '' : 's'} listed`;
+      productsBody.innerHTML = '';
+
+      if (productsCache.length === 0) {
+        productsBody.innerHTML = '<tr class="empty-row"><td colspan="7">No products yet. Add one above.</td></tr>';
+        return;
+      }
+
+      productsCache.forEach(p => {
+        const st = stockStatus(p.stock);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${p.imageUrl ? `<img class="table-thumb" src="${escapeHtml(p.imageUrl)}" alt="${escapeHtml(p.name)}">` : ''}</td>
+          <td class="cell-strong">${escapeHtml(p.name)}</td>
+          <td>${escapeHtml(p.category || '')}</td>
+          <td>&pound;${Number(p.price).toFixed(2)}</td>
+          <td><input type="number" class="stock-input" min="0" step="1" value="${p.stock}" data-id="${p.id}"></td>
+          <td><span class="stock-badge ${st.cls}">${st.label}</span></td>
+          <td class="cell-actions">
+            <button type="button" class="row-edit-btn" data-id="${p.id}">Edit</button>
+            <button type="button" class="row-delete-btn" data-id="${p.id}" data-type="product">Remove</button>
+          </td>
+        `;
+        productsBody.appendChild(tr);
+      });
+    }
+
+    onSnapshot(query(productsCol, orderBy('createdAt', 'desc')), (snap) => {
+      productsCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderProducts();
+    }, (err) => {
+      productsBody.innerHTML = `<tr class="empty-row"><td colspan="7">Couldn't load products: ${err.message}</td></tr>`;
+    });
+
+    function resetProductForm() {
+      productForm.reset();
+      productIdInput.value = '';
+      productFormTitle.textContent = 'Add New Product';
+      productSubmitBtn.textContent = 'Add Product';
+      productCancelBtn.style.display = 'none';
+      productImagePreview.style.display = 'none';
+      productStockInput.value = 0;
+    }
+
+    productCancelBtn.addEventListener('click', resetProductForm);
+
+    productForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = productNameInput.value.trim();
+      const description = productDescInput.value.trim();
+      const category = productCategoryInput.value;
+      const price = parseFloat(productPriceInput.value);
+      const stock = parseInt(productStockInput.value, 10);
+      const editingId = productIdInput.value;
+      const file = productImageInput.files[0];
+
+      if (!name || !description || isNaN(price) || price < 0 || isNaN(stock) || stock < 0) return;
+      if (!editingId && !file) {
+        showFeedback(productFeedback, 'Please choose a photo for the product.', true);
+        return;
+      }
+
+      productSubmitBtn.disabled = true;
+      productSubmitBtn.textContent = file ? 'Uploading photo...' : 'Saving...';
+
+      try {
+        let imageUrl = null;
+        if (file) {
+          imageUrl = await uploadToCloudinary(file);
+        }
+
+        if (editingId) {
+          const updateData = { name, description, category, price, stock };
+          if (imageUrl) updateData.imageUrl = imageUrl;
+          await updateDoc(doc(db, 'products', editingId), updateData);
+          showFeedback(productFeedback, `${name} updated.`);
+        } else {
+          await addDoc(productsCol, {
+            name, description, category, price, stock, imageUrl,
+            createdAt: serverTimestamp()
+          });
+          showFeedback(productFeedback, `${name} added to the shop.`);
+        }
+        resetProductForm();
+      } catch (err) {
+        showFeedback(productFeedback, err.message || 'Something went wrong.', true);
+      } finally {
+        productSubmitBtn.disabled = false;
+        productSubmitBtn.textContent = editingId ? 'Update Product' : 'Add Product';
+      }
+    });
+
+    // Edit button -> load product into form
+    productsBody.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('row-edit-btn')) return;
+      const id = e.target.dataset.id;
+      const p = productsCache.find(x => x.id === id);
+      if (!p) return;
+
+      productIdInput.value = p.id;
+      productNameInput.value = p.name;
+      productDescInput.value = p.description || '';
+      productCategoryInput.value = p.category || 'Grooming';
+      productPriceInput.value = p.price;
+      productStockInput.value = p.stock;
+      productImagePreview.src = p.imageUrl || '';
+      productImagePreview.style.display = p.imageUrl ? 'block' : 'none';
+
+      productFormTitle.textContent = `Editing: ${p.name}`;
+      productSubmitBtn.textContent = 'Update Product';
+      productCancelBtn.style.display = 'block';
+      productForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // Inline stock quantity edit -> saves on change
+    productsBody.addEventListener('change', async (e) => {
+      if (!e.target.classList.contains('stock-input')) return;
+      const id = e.target.dataset.id;
+      const newStock = parseInt(e.target.value, 10);
+      if (isNaN(newStock) || newStock < 0) return;
+      try {
+        await updateDoc(doc(db, 'products', id), { stock: newStock });
+      } catch (err) {
+        showFeedback(productFeedback, `Couldn't update stock: ${err.message}`, true);
+      }
+    });
+
+    // Delete product
+    productsBody.addEventListener('click', async (e) => {
+      if (!e.target.classList.contains('row-delete-btn')) return;
+      const { id, type } = e.target.dataset;
+      if (type !== 'product') return;
+      if (!confirm('Remove this product?')) return;
+      try {
+        await deleteDoc(doc(db, 'products', id));
+      } catch (err) {
+        showFeedback(productFeedback, `Couldn't delete: ${err.message}`, true);
+      }
+    });
+
+    // ---------- SERVICES ----------
+
+    const servicesCol = collection(db, 'services');
+    const servicesBody = document.getElementById('servicesBody');
+    const servicesCount = document.getElementById('servicesCount');
+
+    const serviceForm = document.getElementById('serviceForm');
+    const serviceIdInput = document.getElementById('serviceId');
+    const serviceFormTitle = document.getElementById('serviceFormTitle');
+    const serviceSubmitBtn = document.getElementById('serviceSubmitBtn');
+    const serviceCancelBtn = document.getElementById('serviceCancelBtn');
+    const serviceFeedback = document.getElementById('serviceFeedback');
+    const serviceNameInput = document.getElementById('serviceName');
+    const serviceDescInput = document.getElementById('serviceDesc');
+    const servicePriceInput = document.getElementById('servicePrice');
+    const servicePriceUnitInput = document.getElementById('servicePriceUnit');
+    const serviceDurationInput = document.getElementById('serviceDuration');
+    const serviceImageInput = document.getElementById('serviceImage');
+    const serviceImagePreview = document.getElementById('serviceImagePreview');
+
+    wireImagePreview(serviceImageInput, serviceImagePreview);
+
+    let servicesCache = [];
+
+    function renderServices() {
+      servicesCount.textContent = `${servicesCache.length} service${servicesCache.length === 1 ? '' : 's'} listed`;
+      servicesBody.innerHTML = '';
+
+      if (servicesCache.length === 0) {
+        servicesBody.innerHTML = '<tr class="empty-row"><td colspan="5">No services yet. Add one above.</td></tr>';
+        return;
+      }
+
+      servicesCache.forEach(s => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${s.imageUrl ? `<img class="table-thumb" src="${escapeHtml(s.imageUrl)}" alt="${escapeHtml(s.name)}">` : ''}</td>
+          <td class="cell-strong">${escapeHtml(s.name)}</td>
+          <td>&pound;${Number(s.price).toFixed(2)} <span class="cell-sub">${escapeHtml(s.priceUnit || '')}</span></td>
+          <td>${s.duration || 30} min</td>
+          <td class="cell-actions">
+            <button type="button" class="row-edit-btn" data-id="${s.id}">Edit</button>
+            <button type="button" class="row-delete-btn" data-id="${s.id}" data-type="service">Remove</button>
+          </td>
+        `;
+        servicesBody.appendChild(tr);
+      });
+    }
+
+    onSnapshot(query(servicesCol, orderBy('createdAt', 'desc')), (snap) => {
+      servicesCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderServices();
+    }, (err) => {
+      servicesBody.innerHTML = `<tr class="empty-row"><td colspan="4">Couldn't load services: ${err.message}</td></tr>`;
+    });
+
+    function resetServiceForm() {
+      serviceForm.reset();
+      serviceIdInput.value = '';
+      serviceFormTitle.textContent = 'Add New Service';
+      serviceSubmitBtn.textContent = 'Add Service';
+      serviceCancelBtn.style.display = 'none';
+      serviceImagePreview.style.display = 'none';
+      serviceDurationInput.value = 30;
+    }
+
+    serviceCancelBtn.addEventListener('click', resetServiceForm);
+
+    serviceForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = serviceNameInput.value.trim();
+      const description = serviceDescInput.value.trim();
+      const price = parseFloat(servicePriceInput.value);
+      const priceUnit = servicePriceUnitInput.value.trim() || 'Per Service';
+      let duration = parseInt(serviceDurationInput.value, 10);
+      const editingId = serviceIdInput.value;
+      const file = serviceImageInput.files[0];
+
+      if (!name || !description || isNaN(price) || price < 0) return;
+      if (isNaN(duration) || duration < 30) duration = 30;
+      duration = Math.round(duration / 30) * 30;
+      if (!editingId && !file) {
+        showFeedback(serviceFeedback, 'Please choose a photo for the service.', true);
+        return;
+      }
+
+      serviceSubmitBtn.disabled = true;
+      serviceSubmitBtn.textContent = file ? 'Uploading photo...' : 'Saving...';
+
+      try {
+        let imageUrl = null;
+        if (file) {
+          imageUrl = await uploadToCloudinary(file);
+        }
+
+        if (editingId) {
+          const updateData = { name, description, price, priceUnit, duration };
+          if (imageUrl) updateData.imageUrl = imageUrl;
+          await updateDoc(doc(db, 'services', editingId), updateData);
+          showFeedback(serviceFeedback, `${name} updated.`);
+        } else {
+          await addDoc(servicesCol, {
+            name, description, price, priceUnit, duration, imageUrl,
+            createdAt: serverTimestamp()
+          });
+          showFeedback(serviceFeedback, `${name} added to services.`);
+        }
+        resetServiceForm();
+      } catch (err) {
+        showFeedback(serviceFeedback, err.message || 'Something went wrong.', true);
+      } finally {
+        serviceSubmitBtn.disabled = false;
+        serviceSubmitBtn.textContent = editingId ? 'Update Service' : 'Add Service';
+      }
+    });
+
+    servicesBody.addEventListener('click', (e) => {
+      if (e.target.classList.contains('row-edit-btn')) {
+        const id = e.target.dataset.id;
+        const s = servicesCache.find(x => x.id === id);
+        if (!s) return;
+
+        serviceIdInput.value = s.id;
+        serviceNameInput.value = s.name;
+        serviceDescInput.value = s.description || '';
+        servicePriceInput.value = s.price;
+        servicePriceUnitInput.value = s.priceUnit || '';
+        serviceDurationInput.value = s.duration || 30;
+        serviceImagePreview.src = s.imageUrl || '';
+        serviceImagePreview.style.display = s.imageUrl ? 'block' : 'none';
+
+        serviceFormTitle.textContent = `Editing: ${s.name}`;
+        serviceSubmitBtn.textContent = 'Update Service';
+        serviceCancelBtn.style.display = 'block';
+        serviceForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+
+      if (e.target.classList.contains('row-delete-btn') && e.target.dataset.type === 'service') {
+        const id = e.target.dataset.id;
+        if (!confirm('Remove this service?')) return;
+        deleteDoc(doc(db, 'services', id)).catch(err => {
+          showFeedback(serviceFeedback, `Couldn't delete: ${err.message}`, true);
+        });
+      }
+    });
+
+    // ---------- AVAILABILITY ----------
+
+    const availabilityRef = doc(db, 'settings', 'availability');
+    const availabilityGrid = document.getElementById('availabilityGrid');
+    const availabilityFeedback = document.getElementById('availabilityFeedback');
+
+    // Full 8am-8pm grid in 30-minute steps, e.g. "08:00", "08:30", ... "19:30"
+    const ALL_SLOTS = [];
+    for (let m = 8 * 60; m < 20 * 60; m += 30) {
+      const h = Math.floor(m / 60);
+      const mm = m % 60;
+      ALL_SLOTS.push(`${String(h).padStart(2, '0')}:${String(mm).padStart(2, '0')}`);
+    }
+
+    function slotLabel(key) {
+      const [h, m] = key.split(':').map(Number);
+      const period = h >= 12 ? 'PM' : 'AM';
+      let displayHour = h % 12;
+      if (displayHour === 0) displayHour = 12;
+      return `${displayHour}:${String(m).padStart(2, '0')} ${period}`;
+    }
+
+    let openSlotsCache = new Set(ALL_SLOTS); // default: everything open until we hear otherwise
+
+    function renderAvailabilityGrid() {
+      availabilityGrid.innerHTML = '';
+      ALL_SLOTS.forEach(key => {
+        const isOpen = openSlotsCache.has(key);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `avail-slot ${isOpen ? 'open' : 'closed'}`;
+        btn.dataset.slot = key;
+        btn.textContent = slotLabel(key);
+        availabilityGrid.appendChild(btn);
+      });
+    }
+
+    onSnapshot(availabilityRef, (snap) => {
+      if (snap.exists() && Array.isArray(snap.data().openSlots)) {
+        openSlotsCache = new Set(snap.data().openSlots);
+      } else {
+        openSlotsCache = new Set(ALL_SLOTS);
+      }
+      renderAvailabilityGrid();
+    }, (err) => {
+      availabilityFeedback.textContent = `Couldn't load availability: ${err.message}`;
+      availabilityFeedback.classList.add('error');
+    });
+
+    availabilityGrid.addEventListener('click', async (e) => {
+      const btn = e.target.closest('.avail-slot');
+      if (!btn) return;
+      const key = btn.dataset.slot;
+      const nextOpen = new Set(openSlotsCache);
+      if (nextOpen.has(key)) {
+        nextOpen.delete(key);
+      } else {
+        nextOpen.add(key);
+      }
+      btn.disabled = true;
+      try {
+        await setDoc(availabilityRef, { openSlots: Array.from(nextOpen) }, { merge: true });
+      } catch (err) {
+        showFeedback(availabilityFeedback, `Couldn't save: ${err.message}`, true);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>
