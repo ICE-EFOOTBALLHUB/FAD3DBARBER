@@ -1105,9 +1105,19 @@
     // Firebase keeps you signed in across reloads on its own (that's what
     // "Remember this device" controls, via persistence mode below), so this
     // replaces the old localStorage-based remembered-device check.
+    // Collected as each section below defines its listener-start function.
+    // Called once, only after Firebase confirms a signed-in user, so no
+    // read ever fires while logged out (avoids the permission-denied flash).
+    const adminListenerStarters = [];
+    let adminListenersStarted = false;
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         unlockAdmin();
+        if (!adminListenersStarted) {
+          adminListenersStarted = true;
+          adminListenerStarters.forEach(start => start());
+        }
       } else {
         lockAdmin();
       }
@@ -1260,11 +1270,13 @@
       });
     }
 
-    onSnapshot(query(bookingsCol, orderBy('createdAt', 'desc')), (snap) => {
-      reservationsCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      renderReservations();
-    }, (err) => {
-      reservationsBody.innerHTML = `<tr class="empty-row"><td colspan="6">Couldn't load reservations: ${err.message}</td></tr>`;
+    adminListenerStarters.push(() => {
+      onSnapshot(query(bookingsCol, orderBy('createdAt', 'desc')), (snap) => {
+        reservationsCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        renderReservations();
+      }, (err) => {
+        reservationsBody.innerHTML = `<tr class="empty-row"><td colspan="6">Couldn't load reservations: ${err.message}</td></tr>`;
+      });
     });
 
     // ---------- ORDERS (orders collection) ----------
@@ -1305,11 +1317,13 @@
       });
     }
 
-    onSnapshot(query(ordersCol, orderBy('createdAt', 'desc')), (snap) => {
-      ordersCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      renderOrders();
-    }, (err) => {
-      ordersBody.innerHTML = `<tr class="empty-row"><td colspan="6">Couldn't load orders: ${err.message}</td></tr>`;
+    adminListenerStarters.push(() => {
+      onSnapshot(query(ordersCol, orderBy('createdAt', 'desc')), (snap) => {
+        ordersCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        renderOrders();
+      }, (err) => {
+        ordersBody.innerHTML = `<tr class="empty-row"><td colspan="6">Couldn't load orders: ${err.message}</td></tr>`;
+      });
     });
 
     // ---------- REVIEWS (reviews collection) ----------
@@ -1323,29 +1337,31 @@
       return timestamp.toDate().toISOString().slice(0, 10);
     }
 
-    onSnapshot(query(reviewsCol, orderBy('createdAt', 'desc')), (snap) => {
-      reviewsCount.textContent = `${snap.size} review${snap.size === 1 ? '' : 's'}`;
-      reviewsBody.innerHTML = '';
+    adminListenerStarters.push(() => {
+      onSnapshot(query(reviewsCol, orderBy('createdAt', 'desc')), (snap) => {
+        reviewsCount.textContent = `${snap.size} review${snap.size === 1 ? '' : 's'}`;
+        reviewsBody.innerHTML = '';
 
-      if (snap.empty) {
-        reviewsBody.innerHTML = '<tr class="empty-row"><td colspan="5">No reviews yet.</td></tr>';
-        return;
-      }
+        if (snap.empty) {
+          reviewsBody.innerHTML = '<tr class="empty-row"><td colspan="5">No reviews yet.</td></tr>';
+          return;
+        }
 
-      snap.forEach(docSnap => {
-        const r = docSnap.data();
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${escapeHtml(r.name || 'Anonymous')}</td>
-          <td>${'&#9733;'.repeat(Number(r.stars) || 0)}${'&#9734;'.repeat(5 - (Number(r.stars) || 0))}</td>
-          <td>${escapeHtml(r.text || '')}</td>
-          <td>${formatReviewDate(r.createdAt)}</td>
-          <td><button type="button" class="row-delete-btn" data-id="${docSnap.id}" data-type="review">Remove</button></td>
-        `;
-        reviewsBody.appendChild(tr);
+        snap.forEach(docSnap => {
+          const r = docSnap.data();
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${escapeHtml(r.name || 'Anonymous')}</td>
+            <td>${'&#9733;'.repeat(Number(r.stars) || 0)}${'&#9734;'.repeat(5 - (Number(r.stars) || 0))}</td>
+            <td>${escapeHtml(r.text || '')}</td>
+            <td>${formatReviewDate(r.createdAt)}</td>
+            <td><button type="button" class="row-delete-btn" data-id="${docSnap.id}" data-type="review">Remove</button></td>
+          `;
+          reviewsBody.appendChild(tr);
+        });
+      }, (err) => {
+        reviewsBody.innerHTML = `<tr class="empty-row"><td colspan="5">Couldn't load reviews: ${err.message}</td></tr>`;
       });
-    }, (err) => {
-      reviewsBody.innerHTML = `<tr class="empty-row"><td colspan="5">Couldn't load reviews: ${err.message}</td></tr>`;
     });
 
     // ---------- STATUS + DELETE (event delegation) ----------
@@ -1455,11 +1471,13 @@
       });
     }
 
-    onSnapshot(query(productsCol, orderBy('createdAt', 'desc')), (snap) => {
-      productsCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      renderProducts();
-    }, (err) => {
-      productsBody.innerHTML = `<tr class="empty-row"><td colspan="7">Couldn't load products: ${err.message}</td></tr>`;
+    adminListenerStarters.push(() => {
+      onSnapshot(query(productsCol, orderBy('createdAt', 'desc')), (snap) => {
+        productsCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        renderProducts();
+      }, (err) => {
+        productsBody.innerHTML = `<tr class="empty-row"><td colspan="7">Couldn't load products: ${err.message}</td></tr>`;
+      });
     });
 
     function resetProductForm() {
@@ -1617,11 +1635,13 @@
       });
     }
 
-    onSnapshot(query(servicesCol, orderBy('createdAt', 'desc')), (snap) => {
-      servicesCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      renderServices();
-    }, (err) => {
-      servicesBody.innerHTML = `<tr class="empty-row"><td colspan="4">Couldn't load services: ${err.message}</td></tr>`;
+    adminListenerStarters.push(() => {
+      onSnapshot(query(servicesCol, orderBy('createdAt', 'desc')), (snap) => {
+        servicesCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        renderServices();
+      }, (err) => {
+        servicesBody.innerHTML = `<tr class="empty-row"><td colspan="4">Couldn't load services: ${err.message}</td></tr>`;
+      });
     });
 
     function resetServiceForm() {
@@ -1752,16 +1772,18 @@
       });
     }
 
-    onSnapshot(availabilityRef, (snap) => {
-      if (snap.exists() && Array.isArray(snap.data().openSlots)) {
-        openSlotsCache = new Set(snap.data().openSlots);
-      } else {
-        openSlotsCache = new Set(ALL_SLOTS);
-      }
-      renderAvailabilityGrid();
-    }, (err) => {
-      availabilityFeedback.textContent = `Couldn't load availability: ${err.message}`;
-      availabilityFeedback.classList.add('error');
+    adminListenerStarters.push(() => {
+      onSnapshot(availabilityRef, (snap) => {
+        if (snap.exists() && Array.isArray(snap.data().openSlots)) {
+          openSlotsCache = new Set(snap.data().openSlots);
+        } else {
+          openSlotsCache = new Set(ALL_SLOTS);
+        }
+        renderAvailabilityGrid();
+      }, (err) => {
+        availabilityFeedback.textContent = `Couldn't load availability: ${err.message}`;
+        availabilityFeedback.classList.add('error');
+      });
     });
 
     availabilityGrid.addEventListener('click', async (e) => {
